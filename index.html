@@ -184,10 +184,7 @@
   var fireballSize = 22;
 
   var getFireballSpeed = function (isMovingLeft) {
-    if (isMovingLeft) {
-      return 2;
-    }
-    return 5;
+    return isMovingLeft ? 2 : 5;
   };
 
   var wizardSpeed = 3;
