@@ -1,8 +1,8 @@
 // статистика
-const CLOUD_WIDTH = 500;
-const CLOUD_HEIGHT = 200;
+const CLOUD_WIDTH = 420;
+const CLOUD_HEIGHT = 270;
 const CLOUD_X = 100;
-const CLOUD_Y = 50;
+const CLOUD_Y = 10;
 const GAP = 10;
 const FONT_GAP = 15;
 const TEXT_WIDTH = 50;
@@ -17,7 +17,7 @@ const renderCloud = function (ctx, x, y, color) {
 const getMaxElement = function (arr) {
   let maxElement = arr[0];
 
-  for (const i = 1; i < arr.length; i++) {
+  for (let i = 1; i < arr.length; i++) {
     if (arr[i] > maxElement) {
       maxElement = arr[i];
     }
@@ -31,7 +31,7 @@ window.renderStatistics = function (ctx, players, times) {
     ctx,
     CLOUD_X + GAP,
     CLOUD_Y + GAP,
-    "rgba(0, 0, 0, 0.3)"
+    "rgba(0, 0, 0, 0.7)"
   );
   renderCloud(
     ctx,
@@ -44,7 +44,7 @@ window.renderStatistics = function (ctx, players, times) {
 
   const maxTime = getMaxElement(times);
 
-  for (const i = 0; i < players.length; i++) {
+  for (let i = 0; i < players.length; i++) {
     ctx.fillText(
       players[i],
       CLOUD_X + GAP,
