@@ -3,11 +3,13 @@ const CLOUD_WIDTH = 420;
 const CLOUD_HEIGHT = 270;
 const CLOUD_X = 100;
 const CLOUD_Y = 10;
-const GAP = 10;
+const GAP = 50;
 const FONT_GAP = 15;
 const TEXT_WIDTH = 50;
 const BAR_HEIGHT = 20;
 const barWidth = CLOUD_WIDTH - GAP - TEXT_WIDTH - GAP;
+
+
 
 const renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
@@ -57,4 +59,13 @@ window.renderStatistics = function (ctx, players, times) {
       BAR_HEIGHT,
     );
   }
+
+  const canvas = document.querySelector("canvas");
+
+  const textMessage = canvas.getContext("2d");
+
+  textMessage.font = "16px PT Mono";
+  textMessage.textBaseline = "hanging";
+  textMessage.fillText("Ура вы победили!", 118, 30);
+  textMessage.fillText("Список результатов:", 118, 50);
 };
