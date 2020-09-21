@@ -10,7 +10,7 @@ const GAP_TEXT = 30;
 const TEXT_HEIGHT = 20;
 const BAR_GAP = 50;
 const BAR_WIDTH = 40;
-const BAR_HEIGHT = CLOUD_HEIGHT - BAR_GAP - TEXT_HEIGHT - BAR_GAP;
+const BAR_HEIGHT = 150;
 
 
 const renderCloud = function (ctx, x, y, color) {
@@ -30,6 +30,16 @@ const getMaxElement = function (arr) {
   return maxElement;
 };
 
+function getRandomNumber(min, max) {
+  return min + Math.random() * (max - min);
+}
+
+function getExpression() {
+  const randomColor = getRandomNumber(0, 100);
+  return `hsl(215, ${randomColor}%, 50%)`;
+}
+
+
 window.renderStatistics = function (ctx, players, times) {
   renderCloud(
       ctx,
@@ -48,41 +58,25 @@ window.renderStatistics = function (ctx, players, times) {
 
   const maxTime = getMaxElement(times);
 
-  function randomS() {
-    function rand(min, max) {
-      return min + Math.random() * (max - min);
-    }
-    const randomSaturation = rand(0, 100);
-    return `hsl(215, ${randomSaturation}%, 50%)`;
-  }
 
   for (let i = 0; i < players.length; i++) {
-    if (players[i] === `Вы`) {
-      ctx.fillStyle = `hsl(0, 100%, 50%)`;
-    } else {
+    const player = players[i];
+    const time = times[i];
+    const barX = CLOUD_X + BAR_GAP + (BAR_GAP + BAR_WIDTH) * i;
+    const barY = CLOUD_Y + BAR_GAP + BAR_HEIGHT + GAP_TEXT;
+    const barWidth = BAR_WIDTH;
+    const barHeight = -Math.floor((BAR_HEIGHT * time) / maxTime);
+    const barYTime = barY + barHeight - TEXT_HEIGHT;
+    const barYPlayer = barY + GAP;
 
-      ctx.fillStyle = randomS();
-    }
-
-    ctx.fillRect(
-        CLOUD_X + BAR_GAP + (BAR_GAP + BAR_WIDTH) * i,
-        CLOUD_Y + BAR_GAP + BAR_HEIGHT + GAP_TEXT,
-        BAR_WIDTH,
-        -(BAR_HEIGHT * times[i]) / maxTime
-    );
     ctx.fillStyle = `#000`;
+    ctx.textBaseline = `hanging`;
+    ctx.fillText(Math.floor(time), barX, barYTime);
+    ctx.fillText(player, barX, barYPlayer);
 
-    ctx.fillText(
-        Math.floor(times[i]),
-        CLOUD_X + BAR_GAP + (BAR_GAP + BAR_WIDTH) * i,
-        CLOUD_Y + BAR_GAP + BAR_HEIGHT + GAP_TEXT - GAP - (BAR_HEIGHT * times[i]) / maxTime
-    );
+    ctx.fillStyle = player === `Вы` ? `hsl(0, 100%, 50%)` : getExpression();
+    ctx.fillRect(barX, barY, barWidth, barHeight);
 
-    ctx.fillText(
-        players[i],
-        CLOUD_X + BAR_GAP + (BAR_GAP + BAR_WIDTH) * i,
-        CLOUD_Y + BAR_GAP + BAR_HEIGHT + TEXT_HEIGHT + GAP_TEXT
-    );
   }
 
   const canvas = document.querySelector(`canvas`);
@@ -90,6 +84,7 @@ window.renderStatistics = function (ctx, players, times) {
 
   textMessage.font = `16px PT Mono`;
   textMessage.textBaseline = `hanging`;
+  textMessage.fillStyle = `#000`;
   textMessage.fillText(
       `Ура вы победили!`,
       118,
