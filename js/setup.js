@@ -5,34 +5,33 @@ const WIZARD_SURNAMES = [`да Марья`, `Верон`, `Мирабелла`, 
 const WIZARD_COAT_COLORS = [`rgb(101, 137, 164)`, `rgb(241, 43, 107)`, `rgb(146, 100, 161)`, `rgb(56, 159, 117)`, `rgb(215, 210, 55)`, `rgb(0, 0, 0)`];
 const WIZARD_EYSYS_COLOR = [`black`, `red`, `blue`, `yellow`, `green`];
 
-const getRandomValue = function (min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
+const gerWizardName = function () {
+  const randomName = getRandomNumber(0, WIZARD_NAMES.length);
+  return WIZARD_NAMES[randomName];
 };
 
-const getMaxElement = function (arr) {
-  let maxElement = arr[0];
-
-  for (let i = 1; i < arr.length; i++) {
-    if (arr[i] > maxElement) {
-      maxElement = arr[i];
-    }
-  }
-  return maxElement;
+const gerWizardSurname = function () {
+  const randomSurname = getRandomNumber(0, WIZARD_SURNAMES.length);
+  return WIZARD_SURNAMES[randomSurname];
 };
 
-const maxName = getMaxElement(WIZARD_NAMES);
-const maxSurname = getMaxElement(WIZARD_SURNAMES);
-const maxCoatColor = getMaxElement(WIZARD_COAT_COLORS);
-const maxEysyColor = getMaxElement(WIZARD_EYSYS_COLOR);
+const gerWizardCoatColor = function () {
+  const randomCoatColor = getRandomNumber(0, WIZARD_COAT_COLORS.length);
+  return WIZARD_COAT_COLORS[randomCoatColor];
+};
 
-function gerWizardName() {
-  const wizardName = getRandomValue(0, maxName);
-  return wizardName;
-}
-const wizardSurname = WIZARD_SURNAMES[Math.floor(Math.random() * WIZARD_SURNAMES.length)];
-const wizardCoatColor = WIZARD_COAT_COLORS[Math.floor(Math.random() * WIZARD_COAT_COLORS.length)];
-const wizardEysyColor = WIZARD_EYSYS_COLOR[Math.floor(Math.random() * WIZARD_EYSYS_COLOR.length)];
+const gerWizardEysysColor = function () {
+  const randomEysysColor = getRandomNumber(0, WIZARD_EYSYS_COLOR.length);
+  return WIZARD_EYSYS_COLOR[randomEysysColor];
+};
 
+const getWizard = function () {
+  return {
+    name: gerWizardName() + ` ` + gerWizardSurname(),
+    coatColor: gerWizardCoatColor(),
+    eyesColor: gerWizardEysysColor(),
+  };
+};
 
 const userDialog = document.querySelector(`.setup`);
 userDialog.classList.remove(`hidden`);
@@ -43,29 +42,12 @@ const similarWizardTemplate = document.querySelector(`#similar-wizard-template`)
   .content
   .querySelector(`.setup-similar-item`);
 
-const wizards = [
-  {
-    name: gerWizardName() + ` ` + wizardSurname,
-    coatColor: wizardCoatColor,
-    eyesColor: wizardEysyColor,
-  },
-  {
-    name: gerWizardName() + ` ` + wizardSurname,
-    coatColor: wizardCoatColor,
-    eyesColor: wizardEysyColor,
-  },
-  {
-    name: gerWizardName() + ` ` + wizardSurname,
-    coatColor: wizardCoatColor,
-    eyesColor: wizardEysyColor,
-  },
-  {
-    name: gerWizardName() + ` ` + wizardSurname,
-    coatColor: wizardCoatColor,
-    eyesColor: wizardEysyColor,
-  }
-];
+const wizards = [];
 
+for (let i = 0; i < 4; i++) {
+  const wizard = getWizard();
+  wizards.push(wizard);
+}
 
 const renderWizard = function (wizard) {
   const wizardElement = similarWizardTemplate.cloneNode(true);

@@ -30,11 +30,11 @@ const getMaxElement = function (arr) {
   return maxElement;
 };
 
-function getRandomNumber(min, max) {
-  return min + Math.random() * (max - min);
+const getRandomNumber = function (min, max) {
+  return min + Math.floor(Math.random() * (max - min));
 }
 
-function getExpression() {
+const getExpression = function () {
   const randomColor = getRandomNumber(0, 100);
   return `hsl(215, ${randomColor}%, 50%)`;
 }
