@@ -5,7 +5,30 @@ const WIZARD_SURNAMES = [`да Марья`, `Верон`, `Мирабелла`, 
 const WIZARD_COAT_COLORS = [`rgb(101, 137, 164)`, `rgb(241, 43, 107)`, `rgb(146, 100, 161)`, `rgb(56, 159, 117)`, `rgb(215, 210, 55)`, `rgb(0, 0, 0)`];
 const WIZARD_EYSYS_COLOR = [`black`, `red`, `blue`, `yellow`, `green`];
 
-const wizardName = WIZARD_NAMES[Math.floor(Math.random() * WIZARD_NAMES.length)];
+const getRandomValue = function (min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+};
+
+const getMaxElement = function (arr) {
+  let maxElement = arr[0];
+
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] > maxElement) {
+      maxElement = arr[i];
+    }
+  }
+  return maxElement;
+};
+
+const maxName = getMaxElement(WIZARD_NAMES);
+const maxSurname = getMaxElement(WIZARD_SURNAMES);
+const maxCoatColor = getMaxElement(WIZARD_COAT_COLORS);
+const maxEysyColor = getMaxElement(WIZARD_EYSYS_COLOR);
+
+function gerWizardName() {
+  const wizardName = getRandomValue(0, maxName);
+  return wizardName;
+}
 const wizardSurname = WIZARD_SURNAMES[Math.floor(Math.random() * WIZARD_SURNAMES.length)];
 const wizardCoatColor = WIZARD_COAT_COLORS[Math.floor(Math.random() * WIZARD_COAT_COLORS.length)];
 const wizardEysyColor = WIZARD_EYSYS_COLOR[Math.floor(Math.random() * WIZARD_EYSYS_COLOR.length)];
@@ -22,22 +45,22 @@ const similarWizardTemplate = document.querySelector(`#similar-wizard-template`)
 
 const wizards = [
   {
-    name: wizardName + ` ` + wizardSurname,
+    name: gerWizardName() + ` ` + wizardSurname,
     coatColor: wizardCoatColor,
     eyesColor: wizardEysyColor,
   },
   {
-    name: wizardName + ` ` + wizardSurname,
+    name: gerWizardName() + ` ` + wizardSurname,
     coatColor: wizardCoatColor,
     eyesColor: wizardEysyColor,
   },
   {
-    name: wizardName + ` ` + wizardSurname,
+    name: gerWizardName() + ` ` + wizardSurname,
     coatColor: wizardCoatColor,
     eyesColor: wizardEysyColor,
   },
   {
-    name: wizardName + ` ` + wizardSurname,
+    name: gerWizardName() + ` ` + wizardSurname,
     coatColor: wizardCoatColor,
     eyesColor: wizardEysyColor,
   }
