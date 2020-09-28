@@ -1,4 +1,3 @@
-// статистика
 'use strict';
 
 const CLOUD_WIDTH = 420;
@@ -30,14 +29,15 @@ const getMaxElement = function (arr) {
   return maxElement;
 };
 
-function getRandomNumber(min, max) {
-  return min + Math.random() * (max - min);
-}
+const getRandomNumber = function (min, max) {
+  return min + Math.floor(Math.random() * (max - min));
+};
 
-function getExpression() {
+
+const getExpression = function () {
   const randomColor = getRandomNumber(0, 100);
   return `hsl(215, ${randomColor}%, 50%)`;
-}
+};
 
 
 window.renderStatistics = function (ctx, players, times) {
