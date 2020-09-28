@@ -32,12 +32,13 @@ const getMaxElement = function (arr) {
 
 const getRandomNumber = function (min, max) {
   return min + Math.floor(Math.random() * (max - min));
-}
+};
+
 
 const getExpression = function () {
   const randomColor = getRandomNumber(0, 100);
   return `hsl(215, ${randomColor}%, 50%)`;
-}
+};
 
 
 window.renderStatistics = function (ctx, players, times) {
