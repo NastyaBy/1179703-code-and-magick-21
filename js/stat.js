@@ -29,10 +29,6 @@ const getMaxElement = function (arr) {
   return maxElement;
 };
 
-const getRandomNumber = function (min, max) {
-  return min + Math.floor(Math.random() * (max - min));
-};
-
 
 const getExpression = function () {
   const randomColor = getRandomNumber(0, 100);
