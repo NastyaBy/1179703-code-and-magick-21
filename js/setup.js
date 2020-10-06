@@ -4,11 +4,14 @@ const WIZARD_NAMES = [`Иван`, `Хуан Себастьян`, `Мария`, `
 const WIZARD_SURNAMES = [`да Марья`, `Верон`, `Мирабелла`, `Вальц`, `Онопко`, `Топольницкая`, `Нионго`, `Ирвинг`];
 const WIZARD_COAT_COLORS = [`rgb(101, 137, 164)`, `rgb(241, 43, 107)`, `rgb(146, 100, 161)`, `rgb(56, 159, 117)`, `rgb(215, 210, 55)`, `rgb(0, 0, 0)`];
 const WIZARD_EYSYS_COLOR = [`black`, `red`, `blue`, `yellow`, `green`];
+const WIZARD_FIREBALL_COLOR = [`#ee4830`, `#30a8ee`, `#5ce6c0`, `#e848d5`, `#e6e848`];
+const MIN_NAME_LENGTH = 2;
+const MAX_NAME_LENGTH = 25;
 
 const setup = document.querySelector(`.setup`);
 const openSetup = document.querySelector(`.setup-open`);
 const closeSetup = setup.querySelector(`.setup-close`);
-
+const userNameInput = document.querySelector(`.setup-user-name`);
 
 const getRandomNumber = function (min, max) {
   return min + Math.floor(Math.random() * (max - min));
@@ -102,4 +105,35 @@ closeSetup.addEventListener(`keydown`, function (evt) {
 
 closeSetup.addEventListener(`click`, function () {
   closePopup();
+});
+
+userNameInput.addEventListener(`input`, function () {
+  let valueLength = userNameInput.value.length;
+
+  if (valueLength < MIN_NAME_LENGTH) {
+    userNameInput.setCustomValidity(`Ещё ` + `${(MIN_NAME_LENGTH - valueLength)}` + ` симв.`);
+  } else if (valueLength > MAX_NAME_LENGTH) {
+    userNameInput.setCustomValidity(`Удалите лишние` + `${(valueLength - MAX_NAME_LENGTH)}` + `симв.`);
+  } else {
+    userNameInput.setCustomValidity(``);
+  }
+
+  userNameInput.reportValidity();
+});
+
+const setupWizard = setup.querySelector(`.setup-wizard`);
+const clickCoat = setupWizard.querySelector(`.wizard-coat`);
+const clickEyes = setupWizard.querySelector(`.wizard-eyes`);
+const clickFireball = setupWizard.querySelector(`.setup-fireball-wrap`);
+
+clickCoat.addEventListener(`click`, function () {
+  getRandomItem(WIZARD_COAT_COLORS);
+});
+
+clickEyes.addEventListener(`click`, function () {
+  getRandomItem(WIZARD_EYSYS_COLOR);
+});
+
+clickFireball.addEventListener(`click`, function () {
+  getRandomItem(WIZARD_FIREBALL_COLOR);
 });
