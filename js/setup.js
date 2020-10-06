@@ -5,6 +5,11 @@ const WIZARD_SURNAMES = [`да Марья`, `Верон`, `Мирабелла`, 
 const WIZARD_COAT_COLORS = [`rgb(101, 137, 164)`, `rgb(241, 43, 107)`, `rgb(146, 100, 161)`, `rgb(56, 159, 117)`, `rgb(215, 210, 55)`, `rgb(0, 0, 0)`];
 const WIZARD_EYSYS_COLOR = [`black`, `red`, `blue`, `yellow`, `green`];
 
+const setup = document.querySelector(`.setup`);
+const openSetup = document.querySelector(`.setup-open`);
+const closeSetup = setup.querySelector(`.setup-close`);
+
+
 const getRandomNumber = function (min, max) {
   return min + Math.floor(Math.random() * (max - min));
 };
@@ -26,8 +31,6 @@ const getWizard = function () {
   };
 };
 
-const userDialog = document.querySelector(`.setup`);
-userDialog.classList.remove(`hidden`);
 
 const similarListElement = document.querySelector(`.setup-similar-list`);
 
@@ -60,3 +63,43 @@ for (let i = 0; i < wizards.length; i++) {
 similarListElement.appendChild(fragment);
 
 document.querySelector(`.setup-similar`).classList.remove(`hidden`);
+
+// Учебный проект: одеть Надежду
+
+const onPopupEscPress = function (evt) {
+  if (evt.key === `Escape`) {
+    evt.preventDefault();
+    closePopup();
+  }
+};
+
+const openPopup = function () {
+  setup.classList.remove(`hidden`);
+  document.addEventListener(`keydown`, onPopupEscPress);
+};
+
+const closePopup = function () {
+  setup.classList.add(`hidden`);
+  document.removeEventListener(`keydown`, onPopupEscPress);
+};
+
+
+openSetup.addEventListener(`click`, function () {
+  openPopup();
+});
+
+openSetup.addEventListener(`keydown`, function (evt) {
+  if (evt.key === `Enter`) {
+    openPopup();
+  }
+});
+
+closeSetup.addEventListener(`keydown`, function (evt) {
+  if (evt.key === `Enter`) {
+    closePopup();
+  }
+});
+
+closeSetup.addEventListener(`click`, function () {
+  closePopup();
+});
