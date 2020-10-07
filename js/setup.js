@@ -127,14 +127,24 @@ const clickCoat = setupWizard.querySelector(`.wizard-coat`);
 const clickEyes = setupWizard.querySelector(`.wizard-eyes`);
 const clickFireball = setup.querySelector(`.setup-fireball-wrap`);
 
+const setupPlayer = setup.querySelector(`.setup-player`);
+const inputCoat = setupPlayer.querySelector(`[name="coat-color"]`);
+const inputEyes = setupPlayer.querySelector(`[name="eyes-color"]`);
+const inputFireball = setupPlayer.querySelector(`[name="fireball-color"]`);
+
 clickCoat.addEventListener(`click`, function () {
   clickCoat.style.fill = getRandomItem(WIZARD_COAT_COLORS);
+  inputCoat.value = clickCoat.style.fill;
 });
 
 clickEyes.addEventListener(`click`, function () {
   clickEyes.style.fill = getRandomItem(WIZARD_EYSYS_COLOR);
+  inputEyes.value = clickEyes.style.fill;
 });
 
 clickFireball.addEventListener(`click`, function () {
   clickFireball.style.background = getRandomItem(WIZARD_FIREBALL_COLOR);
+ // inputFireball.value = clickFireball.style.background;
 });
+
+
