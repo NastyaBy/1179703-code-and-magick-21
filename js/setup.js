@@ -109,14 +109,15 @@ closeSetup.addEventListener(`click`, function () {
 
 userNameInput.addEventListener(`input`, function () {
   let valueLength = userNameInput.value.length;
+  let message = ``;
 
   if (valueLength < MIN_NAME_LENGTH) {
-    userNameInput.setCustomValidity(`Ещё ` + `${(MIN_NAME_LENGTH - valueLength)}` + ` симв.`);
+    message = `Ещё ` + `${(MIN_NAME_LENGTH - valueLength)}` + ` симв.`;
   } else if (valueLength > MAX_NAME_LENGTH) {
-    userNameInput.setCustomValidity(`Удалите лишние` + `${(valueLength - MAX_NAME_LENGTH)}` + `симв.`);
-  } else {
-    userNameInput.setCustomValidity(``);
+    message = `Удалите лишние` + `${(valueLength - MAX_NAME_LENGTH)}` + `симв.`;
   }
+
+  userNameInput.setCustomValidity(message);
 
   userNameInput.reportValidity();
 });
@@ -124,16 +125,16 @@ userNameInput.addEventListener(`input`, function () {
 const setupWizard = setup.querySelector(`.setup-wizard`);
 const clickCoat = setupWizard.querySelector(`.wizard-coat`);
 const clickEyes = setupWizard.querySelector(`.wizard-eyes`);
-const clickFireball = setupWizard.querySelector(`.setup-fireball-wrap`);
+const clickFireball = setup.querySelector(`.setup-fireball-wrap`);
 
 clickCoat.addEventListener(`click`, function () {
-  getRandomItem(WIZARD_COAT_COLORS);
+  clickCoat.style.fill = getRandomItem(WIZARD_COAT_COLORS);
 });
 
 clickEyes.addEventListener(`click`, function () {
-  getRandomItem(WIZARD_EYSYS_COLOR);
+  clickEyes.style.fill = getRandomItem(WIZARD_EYSYS_COLOR);
 });
 
 clickFireball.addEventListener(`click`, function () {
-  getRandomItem(WIZARD_FIREBALL_COLOR);
+  clickFireball.style.background = getRandomItem(WIZARD_FIREBALL_COLOR);
 });
