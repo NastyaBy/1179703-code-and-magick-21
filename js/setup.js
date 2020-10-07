@@ -131,6 +131,8 @@ const setupPlayer = setup.querySelector(`.setup-player`);
 const inputCoat = setupPlayer.querySelector(`[name="coat-color"]`);
 const inputEyes = setupPlayer.querySelector(`[name="eyes-color"]`);
 const inputFireball = setupPlayer.querySelector(`[name="fireball-color"]`);
+const rgbToHex = rgb => `#` + ((1 << 24) + (Number(rgb.match(/\d{1,3}/gi)[0]) << 16) + (Number(rgb.match(/\d{1,3}/gi)[1]) << 8) + Number(rgb.match(/\d{1,3}/gi)[2])).toString(16).slice(1);
+const  hexToRgb = hex => `rgb(${(parseInt(hex.replace(/\#/gi,``), 16) >> 16) & 255},${(parseInt(hex.replace(/\#/gi,``), 16) >> 8) & 255},${(parseInt(hex.replace(/\#/gi,``), 16)) & 255})`;
 
 clickCoat.addEventListener(`click`, function () {
   clickCoat.style.fill = getRandomItem(WIZARD_COAT_COLORS);
@@ -144,7 +146,9 @@ clickEyes.addEventListener(`click`, function () {
 
 clickFireball.addEventListener(`click`, function () {
   clickFireball.style.background = getRandomItem(WIZARD_FIREBALL_COLOR);
- // inputFireball.value = clickFireball.style.background;
+  inputFireball.value = rgbToHex(clickFireball.style.background);
 });
+
+
 
 
